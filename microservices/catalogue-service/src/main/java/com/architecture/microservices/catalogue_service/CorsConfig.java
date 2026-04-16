@@ -1,4 +1,4 @@
-package com.architecture.microservices.order_service;
+package com.architecture.microservices.catalogue_service;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
