@@ -1,5 +1,6 @@
 package com.architecture.microservices.order_service;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import java.util.List;
@@ -62,5 +63,25 @@ public class OrderController {
             return new OrderDetails(order.getId(), order.getQuantity(), customer, product, finalPrice);
             
         }).collect(Collectors.toList());
+    }
+
+    // ROUTE : Création d'une vraie commande
+    @PostMapping
+    public ResponseEntity<String> placeOrder(@RequestBody OrderRequest request) {
+        // 1. On donne l'ordre au catalogue de baisser le stock via une requête HTTP PUT
+        String catalogueUrl = "http://localhost:8081/api/products/" + request.productId() + "/decrease-stock?quantity=" + request.quantity();
+        
+        try {
+            // Le RestTemplate envoie l'ordre. S'il y a une erreur (ex: plus de stock), ça passe dans le 'catch'
+            restTemplate.put(catalogueUrl, null);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erreur lors de l'achat : Produit introuvable ou stock insuffisant.");
+        }
+
+        // 2. Si le catalogue a dit "OK", on sauvegarde la trace de la commande dans notre base H2
+        Order newOrder = new Order(request.customerId(), request.productId(), request.quantity());
+        repository.save(newOrder);
+
+        return ResponseEntity.ok("Paiement validé ! Commande enregistrée avec succès.");
     }
 }
