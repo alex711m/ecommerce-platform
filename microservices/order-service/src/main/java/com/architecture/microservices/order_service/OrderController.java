@@ -1,5 +1,6 @@
 package com.architecture.microservices.order_service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -13,6 +14,13 @@ public class OrderController {
     private final OrderRepository repository;
     // RestTemplate est le "navigateur web" interne de Spring pour faire des requêtes
     private final RestTemplate restTemplate = new RestTemplate(); 
+
+    // NOUVEAU : Récupération des URLs depuis application.properties
+    @Value("${catalogue.service.url}")
+    private String catalogueServiceUrl;
+
+    @Value("${customer.service.url}")
+    private String customerServiceUrl;
 
     public OrderController(OrderRepository repository) {
         this.repository = repository;
@@ -30,15 +38,15 @@ public class OrderController {
         List<Order> orders = repository.findAll();
         
         return orders.stream().map(order -> {
-            // 1. On interroge le customer-service
+            // 1. On interroge le customer-service avec l'URL dynamique
             CustomerDTO customer = restTemplate.getForObject(
-                "http://localhost:8082/api/customers/" + order.getCustomerId(), 
+                customerServiceUrl + "/" + order.getCustomerId(), 
                 CustomerDTO.class
             );
             
-            // 2. On interroge le catalogue-service
+            // 2. On interroge le catalogue-service avec l'URL dynamique
             ProductDTO product = restTemplate.getForObject(
-                "http://localhost:8081/api/products/" + order.getProductId(), 
+                catalogueServiceUrl + "/" + order.getProductId(), 
                 ProductDTO.class
             );
 
@@ -68,8 +76,8 @@ public class OrderController {
     // ROUTE : Création d'une vraie commande
     @PostMapping
     public ResponseEntity<String> placeOrder(@RequestBody OrderRequest request) {
-        // 1. On donne l'ordre au catalogue de baisser le stock via une requête HTTP PUT
-        String catalogueUrl = "http://localhost:8081/api/products/" + request.productId() + "/decrease-stock?quantity=" + request.quantity();
+        // 1. On donne l'ordre au catalogue de baisser le stock via une requête HTTP PUT avec l'URL dynamique
+        String catalogueUrl = catalogueServiceUrl + "/" + request.productId() + "/decrease-stock?quantity=" + request.quantity();
         
         try {
             // Le RestTemplate envoie l'ordre. S'il y a une erreur (ex: plus de stock), ça passe dans le 'catch'
