@@ -44,6 +44,7 @@ Le service `Order-Service` fait office de chef d'orchestre via `RestTemplate` :
   "productId": 2,
   "quantity": 1
 }
+```
 
 ### Déploiement avec Docker (Lancement Facile)
 
