@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  catalogue-service:
+    build: ./catalogue-service
+    ports:
+      - "8081:8081"
+    networks:
+      - ecom-network
+
+  customer-service:
+    build: ./customer-service
+    ports:
+      - "8082:8082"
+    networks:
+      - ecom-network
+
+  order-service:
+    build: ./order-service
+    ports:
+      - "8083:8083"
+    environment:
+      # C'est ici que tes @Value prennent tout leur sens ! 
+      # On remplace 'localhost' par le nom du service Docker
+      - CATALOGUE_SERVICE_URL=http://catalogue-service:8081/api/products
+      - CUSTOMER_SERVICE_URL=http://customer-service:8082/api/customers
+    depends_on:
+      - catalogue-service
+      - customer-service
+    networks:
+      - ecom-network
+
+networks:
+  ecom-network:
+    driver: bridge
