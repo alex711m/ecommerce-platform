@@ -45,3 +45,11 @@ Le service `Order-Service` fait office de chef d'orchestre via `RestTemplate` :
   "quantity": 1
 }
 
+### Déploiement avec Docker (Lancement Facile)
+
+L'ensemble des microservices est conteneurisé avec Docker, ce qui permet de lancer le projet en une seule commande sans avoir à installer Java ou Maven localement.
+
+**La commande à exécuter :**
+Ouvrez un terminal à la racine du dossier `microservices/` et exécutez :
+```bash
+docker compose up --build
