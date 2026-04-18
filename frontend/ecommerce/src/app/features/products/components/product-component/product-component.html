@@ -1,0 +1,50 @@
+<article class="product-card">
+
+  <!-- Image -->
+  <div class="product-card__img-wrap">
+    <img
+      class="product-card__img"
+      [src]="product.image"
+      [alt]="product.name"
+      loading="lazy"
+    />
+  </div>
+
+  <!-- Contenu -->
+  <div class="product-card__body">
+
+    <span class="product-card__category">{{ product.category }}</span>
+
+    <h2 class="product-card__title">{{ product.name }}</h2>
+
+    <!-- Étoiles -->
+    <div class="product-card__rating">
+      @for (star of [1,2,3,4,5]; track star) {
+        <svg
+          class="star"
+          [class.star--filled]="star <= product.rating"
+          xmlns="http://www.w3.org/2000/svg"
+          width="14" height="14"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+      }
+      <span class="product-card__rating-value">{{ product.rating }}</span>
+    </div>
+
+    <!-- Pied de carte -->
+    <div class="product-card__footer">
+      <span class="product-card__price">${{ product.price.toFixed(2) }}</span>
+      <button class="product-card__btn" (click)="addToCart()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+        Ajouter
+      </button>
+    </div>
+
+  </div>
+</article>

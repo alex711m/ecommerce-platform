@@ -1,0 +1,28 @@
+<div class="cart-item">
+
+  <div class="cart-item__img-wrap">
+    <img class="cart-item__img" [src]="item.image" [alt]="item.name" />
+  </div>
+
+  <div class="cart-item__info">
+    <p class="cart-item__name">{{ item.name }}</p>
+    <p class="cart-item__price">${{ item.price.toFixed(2) }} × {{ item.quantity }}</p>
+  </div>
+
+  <div class="cart-item__right">
+    <span class="cart-item__subtotal">${{ (item.price * item.quantity).toFixed(2) }}</span>
+    <button
+      class="cart-item__remove"
+      (click)="cartService.removeFromCart(item.id)"
+      aria-label="Retirer"
+    >
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2.5"
+           stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+</div>
