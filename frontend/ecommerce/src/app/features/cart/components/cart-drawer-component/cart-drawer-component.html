@@ -1,0 +1,70 @@
+@if (cartService.isOpen()) {
+
+  <!-- Overlay sombre (clic pour fermer) -->
+  <div class="cart-overlay" (click)="cartService.toggleCart()"></div>
+
+  <!-- Drawer latéral -->
+  <aside class="cart-drawer">
+
+    <!-- En-tête -->
+    <div class="cart-drawer__header">
+      <div class="cart-drawer__header-left">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+             stroke="#6c47ff" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
+        </svg>
+        <h2 class="cart-drawer__title">Mon panier</h2>
+        @if (cartService.cart().length > 0) {
+          <span class="cart-drawer__count">{{ cartService.cart().length }}</span>
+        }
+      </div>
+      <button class="cart-drawer__close" (click)="cartService.toggleCart()" aria-label="Fermer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2.5"
+             stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Corps : articles ou message vide -->
+    <div class="cart-drawer__body">
+      @if (cartService.cart().length === 0) {
+        <div class="cart-drawer__empty">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none"
+               stroke="#d1d5db" stroke-width="1.5"
+               stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
+          </svg>
+          <p class="cart-drawer__empty-title">Votre panier est vide</p>
+          <p class="cart-drawer__empty-sub">Ajoutez des produits pour commencer</p>
+        </div>
+      } @else {
+        @for (item of cartService.cart(); track item.id) {
+          <app-cart-item-component [item]="item" />
+        }
+      }
+    </div>
+
+    <!-- Pied : total + commander -->
+    @if (cartService.cart().length > 0) {
+      <div class="cart-drawer__footer">
+        <div class="cart-drawer__total-row">
+          <span class="cart-drawer__total-label">Total</span>
+          <span class="cart-drawer__total-amount">${{ cartService.total().toFixed(2) }}</span>
+        </div>
+        <button class="cart-drawer__checkout">
+          Commander →
+        </button>
+        <button class="cart-drawer__clear" (click)="cartService.clearCart()">
+          Vider le panier
+        </button>
+      </div>
+    }
+
+  </aside>
+}
