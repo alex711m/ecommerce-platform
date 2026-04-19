@@ -14,14 +14,16 @@ public class Product {
     private String name;
     private double price;
     private int stock;
+    private String imageUrl;
 
     // Constructeur vide requis par JPA
     public Product() {}
 
-    public Product(String name, double price, int stock) {
+    public Product(String name, double price, int stock, String imageUrl) {
         this.name = name;
         this.price = price;
         this.stock = stock;
+        this.imageUrl = imageUrl;
     }
 
     // Getters et Setters
@@ -33,4 +35,6 @@ public class Product {
     public void setPrice(double price) { this.price = price; }
     public int getStock() { return stock; }
     public void setStock(int stock) { this.stock = stock; }
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 }
