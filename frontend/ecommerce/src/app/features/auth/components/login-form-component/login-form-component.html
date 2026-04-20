@@ -1,0 +1,13 @@
+<form class="auth-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <h2 class="form-title">Login</h2>
+  <app-input-component id="email" label="Email Address" type="email" placeholder="Enter your email"
+    [control]="emailControl">
+  </app-input-component>
+  <app-input-component id="password" label="Password" type="password" placeholder="Enter your password"
+    [control]="passwordControl">
+  </app-input-component>
+
+  <div class="form-actions">
+    <app-button-component type="submit" variant="primary">Sign In</app-button-component>
+  </div>
+</form>
