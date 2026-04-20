@@ -57,7 +57,7 @@
           <span class="cart-drawer__total-label">Total</span>
           <span class="cart-drawer__total-amount">${{ cartService.total().toFixed(2) }}</span>
         </div>
-        <button class="cart-drawer__checkout">
+        <button class="cart-drawer__checkout" (click)="goToCheckout()">
           Commander →
         </button>
         <button class="cart-drawer__clear" (click)="cartService.clearCart()">

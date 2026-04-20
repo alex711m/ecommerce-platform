@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartItemComponent } from '../cart-item-component/cart-item-component';
 import { CartService } from '../../services/cart-service';
 
@@ -10,4 +11,10 @@ import { CartService } from '../../services/cart-service';
 })
 export class CartDrawerComponent {
   cartService = inject(CartService);
+  private router = inject(Router);
+
+  goToCheckout(): void {
+    this.cartService.isOpen.set(false);
+    this.router.navigate(['/order']);
+  }
 }
