@@ -16,8 +16,8 @@
           <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
         </svg>
         <h2 class="cart-drawer__title">Mon panier</h2>
-        @if (cartService.cart().length > 0) {
-          <span class="cart-drawer__count">{{ cartService.cart().length }}</span>
+        @if (cartService.totalItems() > 0) {
+          <span class="cart-drawer__count">{{ cartService.totalItems() }}</span>
         }
       </div>
       <button class="cart-drawer__close" (click)="cartService.toggleCart()" aria-label="Fermer">
@@ -32,7 +32,7 @@
 
     <!-- Corps : articles ou message vide -->
     <div class="cart-drawer__body">
-      @if (cartService.cart().length === 0) {
+      @if (cartService.totalItems() === 0) {
         <div class="cart-drawer__empty">
           <svg width="64" height="64" viewBox="0 0 24 24" fill="none"
                stroke="#d1d5db" stroke-width="1.5"
@@ -51,7 +51,7 @@
     </div>
 
     <!-- Pied : total + commander -->
-    @if (cartService.cart().length > 0) {
+    @if (cartService.totalItems() > 0) {
       <div class="cart-drawer__footer">
         <div class="cart-drawer__total-row">
           <span class="cart-drawer__total-label">Total</span>

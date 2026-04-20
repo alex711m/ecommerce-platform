@@ -76,3 +76,47 @@
   color: #ef4444;
   background: #fee2e2;
 }
+
+/* ── Stepper quantité ── */
+.cart-item__stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-top: 0.4rem;
+  background: #f1f5f9;
+  border-radius: 20px;
+  padding: 2px;
+  width: fit-content;
+}
+
+.stepper__btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6c47ff;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s, transform 0.1s;
+  flex-shrink: 0;
+}
+
+.stepper__btn:hover {
+  background: #ede9fe;
+  transform: scale(1.15);
+}
+
+.stepper__btn:active {
+  transform: scale(0.92);
+}
+
+.stepper__value {
+  min-width: 22px;
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #1e293b;
+}

@@ -24,8 +24,8 @@
           stroke-linecap="round" stroke-linejoin="round" />
       </svg>
 
-      @if (cartService.cart().length > 0) {
-      <span class="navbar__badge">{{ cartService.cart().length }}</span>
+      @if (cartService.totalItems() > 0) {
+      <span class="navbar__badge">{{ cartService.totalItems() }}</span>
       }
     </button>
 

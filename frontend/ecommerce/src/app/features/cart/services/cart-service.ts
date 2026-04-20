@@ -10,6 +10,7 @@ export class CartService {
   cart = signal<CartItem[]>([]);
   isOpen = signal<boolean>(false);
   total = computed(() => this.cart().reduce((acc, item) => acc + item.price * item.quantity, 0));
+  totalItems = computed(() => this.cart().reduce((acc, item) => acc + item.quantity, 0));
 
   addToCart(product: Product): void {
     const existingItem = this.cart().find((item) => item.id === product.id);
@@ -30,6 +31,16 @@ export class CartService {
 
   removeFromCart(id: number): void {
     this.cart.update((items) => items.filter((item) => item.id !== id));
+  }
+
+  updateQuantity(id: number, quantity: number): void {
+    if (quantity <= 0) {
+      this.removeFromCart(id);
+      return;
+    }
+    this.cart.update((items) =>
+      items.map((item) => (item.id === id ? { ...item, quantity } : item))
+    );
   }
 
   clearCart(): void {
