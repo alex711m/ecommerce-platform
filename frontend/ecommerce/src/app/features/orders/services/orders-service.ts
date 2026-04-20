@@ -10,7 +10,11 @@ export class OrdersService {
 
 
   placeOrder(id: number, productId: number, quantity: number) {
-    return this.http.post(this.apiUrl, { customerId: id, productId: productId, quantity: quantity });
+    return this.http.post(
+      this.apiUrl,
+      { customerId: id, productId: productId, quantity: quantity },
+      { responseType: 'text' }
+    );
   }
 
 
