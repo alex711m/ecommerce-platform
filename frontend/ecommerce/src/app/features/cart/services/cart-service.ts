@@ -15,8 +15,6 @@ export class CartService {
   addToCart(product: Product): void {
     const existingItem = this.cart().find((item) => item.id === product.id);
     if (existingItem) {
-      // ⚠️ On NE mute PAS l'objet directement (existingItem.quantity++ ne déclenche
-      // pas la réactivité du signal). On retourne un nouveau tableau avec un nouvel objet.
       this.cart.update((items) =>
         items.map((item) =>
           item.id === product.id
