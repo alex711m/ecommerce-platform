@@ -1,0 +1,125 @@
+/* ── Barre de navigation ──────────────────────────────────── */
+.navbar {
+  position: relative;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 1px 16px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  z-index: 100;
+}
+
+/* ── Logo ─────────────────────────────────────────────────── */
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  text-decoration: none;
+  background: linear-gradient(135deg, #6c47ff, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: opacity 0.2s;
+}
+
+.navbar__logo svg {
+  /* L'icône garde une couleur réelle (le gradient ne s'applique pas au SVG stroke) */
+  stroke: #6c47ff;
+  flex-shrink: 0;
+}
+
+.navbar__logo:hover {
+  opacity: 0.8;
+}
+
+/* ── Actions ──────────────────────────────────────────────── */
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Bouton Connexion */
+.navbar__login-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: 50px;
+  border: 1.5px solid #e2e8f0;
+  background: transparent;
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.navbar__login-btn:hover {
+  border-color: #6c47ff;
+  background: #f5f3ff;
+  color: #6c47ff;
+}
+
+/* Bouton panier */
+.navbar__cart-btn {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid #e2e8f0;
+  background: transparent;
+  color: #374151;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.navbar__cart-btn:hover {
+  border-color: #6c47ff;
+  background: #f5f3ff;
+  color: #6c47ff;
+}
+
+/* Badge nombre d'articles */
+.navbar__badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 19px;
+  height: 19px;
+  background: linear-gradient(135deg, #6c47ff, #a855f7);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  border: 2px solid #fff;
+  animation: badge-pop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.4);
+}
+
+@keyframes badge-pop {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
